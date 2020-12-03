@@ -1,0 +1,11 @@
+.main-header{
+    padding: 4px;
+    height: 20px;
+    width: 100%;
+    background-color: grey;
+    margin-bottom: 4px;
+}
+.item{
+    width: 20%;
+    padding: 5px;
+}

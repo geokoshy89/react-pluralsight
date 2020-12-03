@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Incrementer } from './Incrementer';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { GitHubCard } from './githubcards/GitHubCard';
+import { Header } from './Header';
+import { ConditionalStyle } from './conditionalstyle/ConditionalStyle';
 
 function App() {
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <Header/>
+        <Switch>
+          <Route exact path="/" component={Incrementer}/>
+          <Route path="/gitHubCard" render={(props) =>  <GitHubCard title={'The GitHub Cards App'} />}/>
+          <Route path="/conditional" component={ConditionalStyle}/>
+        </Switch>
+      </Router>
   );
 }
 
 export default App;
+
