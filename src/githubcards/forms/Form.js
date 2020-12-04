@@ -1,8 +1,18 @@
 import React from 'react';
 export class Form extends React.Component{
+    userNameInput=React.createRef();
+    handleSubmit=(event)=>{
+        event.preventDefault();
+        console.log(this.userNameInput.current.value);
+    };
     render(){
-       return  (<form action="">
-                    <input type="text" placeholder="GitHub username"/>
+       return  (<form onSubmit={this.handleSubmit}>
+                    <input 
+                        type="text" 
+                        placeholder="GitHub username" 
+                        ref={this.userNameInput} 
+                        required
+                    />
                     <button>Add card</button>
                  </form>);
     }
