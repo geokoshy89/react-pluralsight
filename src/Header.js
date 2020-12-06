@@ -6,4 +6,5 @@ export const Header=()=>
 <Link to="/" className="item">Incrementer</Link>
 <Link to="/gitHubCard" className="item">GitHub Cards</Link>
 <Link to="/conditional" className="item">Conditional style</Link>
+<Link to="/starmatch" className="item">Start Match Game</Link>
 </div>)
