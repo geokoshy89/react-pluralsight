@@ -1,35 +1,14 @@
 import  { Utils } from './Utils';
 import './StarMatch.css';
-import { useEffect, useState } from 'react';
 import { PlayNumber } from './PlayNumber';
 import { StarDisplay } from './StarDisplay';
 import { PlayAgain } from './PlayAgain';
+import { useGameState } from './GameState';
 export const Game = (props) => {
-    const [stars,setStars]=useState(Utils.random(1,9));
-    const [availableNums,setAvailableNums]=useState(Utils.range(1,9));
-    const [candidateNums,setCandidateNums]=useState([]);
-    const [secondsLeft,setSecondsLeft]=useState(10);
-
-    //This function is invoked everytime the parent
-    //component renders itself
-    useEffect(()=>{
-      if(secondsLeft>0 && availableNums.length>0){
-        const timerId=setTimeout(()=>setSecondsLeft(secondsLeft-1),1000);
-        return ()=>clearTimeout(timerId);
-      } 
-     
-      // console.log('Done rendereing');
-      // return ()=>console.log('Component is rerendering');
-    });
+    const {stars,setGameState,availableNums,candidateNums,secondsLeft}=useGameState();
     const candidatesAreWrong=Utils.sum(candidateNums)>stars;
     const gameStatus=availableNums.length===0?'won':
           secondsLeft===0?'lost':'active';
-
-    // const resetGame=()=>{
-    //   setStars(Utils.random(1,9));
-    //   setAvailableNums(Utils.range(1,9));
-    //   setCandidateNums([]);
-    // }
     const numberStatus=(number)=>{
       if(!availableNums.includes(number)){
         return 'used';
@@ -44,16 +23,7 @@ export const Game = (props) => {
           return;
         }
         const newCandidateNums=candidateNums.concat(number);
-        if(Utils.sum(newCandidateNums)!==stars){
-            setCandidateNums(newCandidateNums);
-        }else{
-          const newAvailableNums=availableNums.filter(
-            n=>!newCandidateNums.includes(n)
-        );
-        setStars(Utils.randomSumIn(newAvailableNums,9));
-          setAvailableNums(newAvailableNums);
-          setCandidateNums([]);
-        }
+        setGameState(newCandidateNums);
     };
     return (
       <div className="game">
